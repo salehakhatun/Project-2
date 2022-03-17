@@ -31,7 +31,7 @@ FOREIGN KEY (country) REFERENCES country (country)
 SELECT * FROM happiness_factors;
 
 CREATE TABLE life_expectancy (
-country VARCHAR(10),
+country TEXT,
 "life expectancy" FLOAT,
 FOREIGN KEY (country) REFERENCES country (country)
 );
