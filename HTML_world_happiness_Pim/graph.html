@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Events</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <!-- <script type="text/javascript" src="scripts/script.js"></script> -->
+  <link rel="stylesheet" type="text/css" href="styles/theme.css">
+
+  <title>Graph | Happiness & Life expectancy </title>
+
+</head>
+
+<header>
+  <h1>Happiness & Life expectancy </h1>
+  <a style="color: white;" href="./index.html"><img id="home_icon" src="images/home.svg" alt="home"> </a>
+</header>
+
+<body>
+
+  <div>
+    <h2>Top 10 world happiness country</h2>
+  </div>
+
+  <div id="plot"></div>
+
+  <select id="selDataset">
+    <option value="dataset1">DataSet1</option>
+    <option value="dataset2">DataSet2</option>
+    <option value="dataset3">DataSet3</option>
+  </select>
+
+  <script src="scripts/plots.js"></script>
+ 
+  <div>
+    <h2>Visualization Outline:</h2>
+    <p>
+        Dataset1: Happiness score <br>
+        Dataset2: Life expantancy <br>
+        Dataset3: trace0: GDP, trace1: Social support, trace2: Freedom to make life choice <br>
+    </p>
+  </div>
+</body>
+
+</html>

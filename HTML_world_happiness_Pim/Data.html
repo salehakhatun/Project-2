@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <script type="text/javascript" src="scripts/script.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="styles/theme.css">
+
+    <title>Data | Happiness & Life expectancy </title>
+
+</head>
+<header>
+    <h1>Happiness & Life expectancy </h1>
+    <a style="color: white;" href="./index.html"><img id="home_icon" src="images/home.svg" alt="home"> </a>
+</header>
+
+<body>
+
+        <h4>World Happiness Report 2019 (Kaggle)</h4>
+  
+      <hr>
+      <h4>The following table includes all of the data used for visualisations during this project.</h4>
+
+      <!-- 
+      <div>
+        <ul>
+          {% for country in happinesss %}
+            <li>{{ country.rank }}: {{ country.country }}: {{ country.Score }}: {{ country.GDP }}: {{ country.social_support }}: {{ country.freedom }}: {{ country.life_expectancy }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+ -->
+        <table>
+            <tr>
+                <th>rank</th>
+                <th>country</th>
+                <th>Score</th>
+                <th>GDP</th>
+                <th>social_support</th>
+                <th>freedom</th>
+                <th>life_expectancy</th>
+            </tr>
+            {% for country in happinesss  %}
+            <tr>
+                
+                <td>{{ country.rank }}</td>
+                <td>{{ country.country }}</td>
+                <td>{{ country.Score }}</td>
+                <td>{{ country.GDP }}</td>
+                <td>{{ country.social_support }}</td>
+                <td>{{ country.freedom }}</td>
+                <td>{{ country.life_expectancy }}</td>
+                
+            </tr>
+            {% endfor %}
+
+              <!--   
+                {% for header in deadings %}
+                <th>{{ header }}</th>
+                {% endfor %}
+                
+            </tr>
+            {% for cell in data %}
+            <tr>
+                {% for cell in row %}
+                <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}-->
+        </table>   
+
+     <!--  <iframe src="data/happiness2019.htm" width="850" height="500"></iframe> -->
+
+</body>
+
+</html>
