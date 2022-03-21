@@ -190,7 +190,7 @@ def index():
     print(happinesss)
 
     # Return the template with the teams list passed in
-    return render_template('Data.html', happinesss=happinesss)
+    return render_template('Data.html', happinessss=happinesss)
 
 
 if __name__ == "__main__":
