@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>World Happiness Analysis</title>
+		<link rel ="stylesheet" type="text/css" href="{{url_for('static', filename='erika.css')}}"></link>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+			  <div class="col-xs-12 col-md-12">
+				<h1>World Happiness Plots</h1>
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="col-xs-12  col-md-9">
+				<!-- <a href="/linkbuttonk" class="btn btn-info" role="button">Next Visualisation</a> -->
+				<div id="scatter">
+				</div>
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="col-xs-12  col-md-9">
+				<div class="article">
+				  <h2>World Happiness Score vs Social Support & Generosity</h2>
+				  <p>Examining the relationship between Social Support and World Happiness Score, we can observe a strong positive correlation.
+					This indicates that countries that provide greater social support have individuals with higher happiness scores. 
+				  </p>
+				  <p>In contrast, the measure of Generosity does not appear to correlate to the country's Happiness Score. Countries with
+					high happiness scores correspond with lower generosity levels, whilst countries like Myanmar and Haiti with the highest
+					generosity levels score less than 5 on the happiness scale.
+
+				  </p>
+		
+				</div>
+			  </div>
+			</div>
+		  </div>
+		
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+		<script src="{{url_for('static', filename='erika.js')}}"></script>
+  </body>
+</html>

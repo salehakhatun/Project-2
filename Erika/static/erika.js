@@ -12,7 +12,7 @@ var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold the chart
-var svg = d3.select(".chart")
+var svg = d3.select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -22,14 +22,14 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Initial Params
-var chosenXAxis = "Happiness_score";
+var chosenXAxis = "social_support";
 
 // function used for updating x-scale var upon click on axis label
-function xScale(Merged, chosenXAxis) {
+function xScale(happyData, chosenXAxis) {
   // create scales
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(Merged, d => d[chosenXAxis]),
-      d3.max(Merged, d => d[chosenXAxis])
+    .domain([d3.min(happyData, d => d[chosenXAxis]),
+      d3.max(happyData, d => d[chosenXAxis])
     ])
     .range([0, width]);
 
@@ -63,11 +63,11 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 
   var label;
 
-  if (chosenXAxis === "Happiness_score") {
-    label = "Happiness Score:";
+  if (chosenXAxis === "social_support") {
+    label = "Social Support:";
   }
   else {
-    label = "Social Support:";
+    label = "Generosity:";
   }
 
   var toolTip = d3.tip()
@@ -83,7 +83,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     toolTip.show(data);
   })
    
-    .on("mouseout", function(data, index) {
+    .on("mouseout", function(data) {
       toolTip.hide(data);
     });
 
@@ -91,20 +91,25 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("data/Merged.csv").then(function(Merged, err) {
-  if (err) throw err;
+//d3.csv("../data/data.csv").then((happyData, err) => {
+  //if (err) throw err;
 
-  Merged.forEach(function(data) {
-    data.Happiness_score = +data.Happiness_score;
-    data.life_expectancy = +data.life_expectancy;
-    data.Social_support = +data.Social_support;
+d3.json("/data").then((happyData) => {
+  //if (err) throw err;
+
+  happyData = JSON.parse(happyData);
+
+  happyData.forEach(function(data) {
+    data.social_support = +data.social_support;
+    data.score = +data.score;
+    data.generosity = +data.generosity;
   });
 
-  var xLinearScale = xScale(Merged, chosenXAxis);
+  var xLinearScale = xScale(happyData, chosenXAxis);
 
   // Create y scale function
   var yLinearScale = d3.scaleLinear()
-    .domain([50, d3.max(Merged, d => d.life_expectancy)])
+    .domain([2, d3.max(happyData, d => d.score)])
     .range([height, 0]);
 
   // Create initial axis functions
@@ -123,11 +128,11 @@ d3.csv("data/Merged.csv").then(function(Merged, err) {
 
   // append initial circles
   var circlesGroup = chartGroup.selectAll("circle")
-    .data(Merged)
+    .data(happyData)
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d.life_expectancy))
+    .attr("cy", d => yLinearScale(d.score))
     .attr("r", 10)
     .attr("fill", "pink")
     .attr("opacity", ".5");
@@ -136,19 +141,19 @@ d3.csv("data/Merged.csv").then(function(Merged, err) {
   var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-  var HappinessScoreLabel = labelsGroup.append("text")
-    .attr("x", 0)
-    .attr("y", 20)
-    .attr("value", "Happiness_score") // value to grab for event listener
-    .classed("active", true)
-    .text("Happiness Score");
-
   var SocialSupportLabel = labelsGroup.append("text")
     .attr("x", 0)
-    .attr("y", 40)
-    .attr("value", "Social_support") // value to grab for event listener
-    .classed("inactive", true)
+    .attr("y", 20)
+    .attr("value", "social_support") // value to grab for event listener
+    .classed("active", true)
     .text("Social Support");
+
+  var GenerosityLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "generosity") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Generosity");
 
   // append y axis
   chartGroup.append("text")
@@ -157,7 +162,7 @@ d3.csv("data/Merged.csv").then(function(Merged, err) {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("Life Expectancy");
+    .text("Happiness Score");
 
   // updateToolTip function 
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
@@ -173,7 +178,7 @@ d3.csv("data/Merged.csv").then(function(Merged, err) {
         chosenXAxis = value;
 
         // updates x scale for new data
-        xLinearScale = xScale(Merged, chosenXAxis);
+        xLinearScale = xScale(happyData, chosenXAxis);
 
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);
@@ -185,11 +190,11 @@ d3.csv("data/Merged.csv").then(function(Merged, err) {
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
         // changes classes to change bold text
-        if (chosenXAxis === "Social_support") {
+        if (chosenXAxis === "social_support") {
           SocialSupportLabel
             .classed("active", true)
             .classed("inactive", false);
-          HappinessScoreLabel
+          GenerosityLabel
             .classed("active", false)
             .classed("inactive", true);
         }
@@ -197,7 +202,7 @@ d3.csv("data/Merged.csv").then(function(Merged, err) {
           SocialSupportLabel
             .classed("active", false)
             .classed("inactive", true);
-          HappinessScoreLabel
+          GenerosityLabel
             .classed("active", true)
             .classed("inactive", false);
         }
