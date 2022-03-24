@@ -12,4 +12,4 @@
 
 
 ### Final project presentation
-Our final project presentation is called Final presentation_Project_2.pptx''
+Our final project presentation is called "Final presentation_Project_2.pptx"
