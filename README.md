@@ -5,6 +5,7 @@
 
 ### Project Goal
 * Python Flask–powered API, HTML/CSS, JavaScript and at least one database (SQL)
+* Heruku: https://worldhappiness22.herokuapp.com/
 * Visit [World Happiness](https://salehakhatun.github.io/Project-2//) Project.
 
 ### Data Source
